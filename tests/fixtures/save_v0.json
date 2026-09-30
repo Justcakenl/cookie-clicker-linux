@@ -1,0 +1,26 @@
+{
+  "format": "cookie-save",
+  "version": 0,
+  "checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "saved_at": 1773990000.0,
+  "app_version": "0.9.0",
+  "payload": {
+    "state": {
+      "cookies": 4321.5,
+      "all_time_cookies": 123456.0,
+      "owned": {"cursor": 12, "grandma": 4},
+      "upgrades_owned": ["up_cursor_1"],
+      "achievements_unlocked": ["ach_clicks_100", "ach_first_cursor"],
+      "heavenly_chips": 0,
+      "prestige_count": 0,
+      "total_clicks": 250,
+      "time_played": 900.0,
+      "rng_seed": 4611686018427387904,
+      "started_at": 1773989000.0
+    },
+    "settings": {
+      "number_format": "short",
+      "animations": true
+    }
+  }
+}

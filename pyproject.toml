@@ -1,0 +1,116 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cookie"
+version = "1.0.0"
+description = "An idle cookie-baking game for the terminal"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Justin Vijfschaft" }]
+keywords = ["game", "idle", "incremental", "terminal", "tui"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Games/Entertainment",
+]
+dependencies = ["textual>=0.80"]
+
+[project.urls]
+Homepage = "https://github.com/Justcakenl/cookie-clicker-linux"
+Changelog = "https://github.com/Justcakenl/cookie-clicker-linux/blob/main/CHANGELOG.md"
+
+[project.scripts]
+cookie = "cookie.__main__:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+  "pytest-asyncio>=0.24",
+  "pytest-cov>=5.0",
+  "ruff>=0.6",
+  "mypy>=1.11",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cookie"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "F",    # pyflakes
+  "E",    # pycodestyle errors
+  "W",    # pycodestyle warnings
+  "I",    # isort
+  "N",    # pep8-naming
+  "UP",   # pyupgrade
+  "B",    # bugbear
+  "A",    # builtin shadowing
+  "C4",   # comprehensions
+  "DTZ",  # naive datetimes
+  "ISC",  # implicit string concat
+  "PIE",
+  "PT",   # pytest style
+  "RET",
+  "SIM",
+  "TID",  # tidy imports
+  "ARG",  # unused arguments
+  "PTH",  # prefer pathlib
+  "ERA",  # commented-out code
+  "PL",   # pylint subset
+  "TRY",
+  "RUF",
+]
+ignore = [
+  "PLR0913",  # argument count is a judgement call, not a rule
+  "PLR0911",  # a formatter built from guard clauses reads better than a nested one
+  "PLR2004",  # thresholds like 1000.0 in a number formatter are clearer inline than named
+  "TRY003",   # message-in-raise is clearer than an exception class per message
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["cookie", "tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+  "PLR0912",  # a match over every unlock metric is a table, not a branchy function
+  "ARG001",   # a monkeypatched stub must keep the signature of what it replaces
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "parents"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+disallow_any_explicit = false
+enable_error_code = ["redundant-expr", "possibly-undefined", "truthy-bool"]
+files = ["src", "tests"]
+
+[[tool.mypy.overrides]]
+module = "cookie.ui.*"
+disallow_any_decorated = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers --strict-config"
+asyncio_mode = "auto"
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["src/cookie"]
+branch = true
+
+[tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]
